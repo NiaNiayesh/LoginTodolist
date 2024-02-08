@@ -10,7 +10,7 @@ const STextField = ({
   label,
   id,
   name,
-  variant = "outlined",
+  variant,
   fullWidth,
   type,
   value,
@@ -26,7 +26,7 @@ const STextField = ({
         label={label}
         id={id}
         name={name}
-        variant={variant}
+        variant="outlined"
         fullWidth={fullWidth}
         InputProps={{
           endAdornment: (

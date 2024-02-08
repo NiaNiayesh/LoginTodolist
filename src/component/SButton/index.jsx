@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
 
 const SButton = ({
-  variant = "contained",
+  variant,
   type,
-  color = "primary",
+  color,
   fullWidth,
   sx,
   onClick,
@@ -13,7 +13,7 @@ const SButton = ({
 }) => {
   return (
     <Button
-      variant={variant}
+      variant="contained"
       type={type}
       color={color}
       fullWidth={fullWidth}

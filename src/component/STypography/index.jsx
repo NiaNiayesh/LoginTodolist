@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 
 const STypography = ({
   variant,
-  align = "center",
+  align,
   color,
   sx,
   children,

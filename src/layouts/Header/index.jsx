@@ -8,6 +8,7 @@ const Header = () => {
       <STypography
         variant="h2"
         color="white"
+        align="center"
         sx={{ flexGrow: 1}}
       >
         My Todolist Application
