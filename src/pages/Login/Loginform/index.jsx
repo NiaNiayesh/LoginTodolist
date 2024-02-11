@@ -10,9 +10,9 @@ import {
   InputAdornment,
   Checkbox,
   IconButton,
+  Typography
 } from "@mui/material";
 import SButton from "../../../component/SButton";
-import STypography from "../../../component/STypography";
 import SInput from "../../../component/SInput";
 import { Person as PersonIcon } from "@mui/icons-material";
 import Visibility from "@mui/icons-material/Visibility";
@@ -143,7 +143,7 @@ export default function LoginForm() {
           </SButton>
           <Grid container display={"flex"} justifyContent={"center"} mt={3}>
             <Grid item display={"flex"}>
-              <STypography variant="body1">Don't have an account?</STypography>
+              <Typography variant="body1">Don't have an account?</Typography>
               <Link href="#" variant="body1">
                 Sign Up
               </Link>

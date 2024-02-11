@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { Container, List, Box } from "@mui/material";
+import { Container, List} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import { v4 as uuidv4 } from "uuid";
@@ -7,6 +7,7 @@ import TodoItem from "./TodoItem/index";
 import { PageLayout } from "../../layouts/PageLayout";
 import SButton from "../../component/SButton";
 import SInput from "../../component/SInput";
+import SBox from "../../component/SBox";
 
 export const TodoContext = createContext();
 
@@ -59,14 +60,12 @@ export default function TodoList() {
   return (
     <TodoContext.Provider value={{ todos, addTodo, editTodo, deleteTodo }}>
       <PageLayout>
-        <Container className="container" maxWidth="sm">
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+        <Container
+          className="container"
+          maxWidth="sm"
+          sx={{ mt: "150px" }}
+        >
+          <SBox todoBox>
             <SInput
               text
               label="Add a todo"
@@ -99,8 +98,8 @@ export default function TodoList() {
                 Add
               </SButton>
             )}
-          </Box>
-          <List sx={{ margin: 1, width: "450px" }}>
+          </SBox>
+          <List sx={{ m: 1, width: "450px" }}>
             {todos.map((todo) => (
               <TodoItem
                 key={todo.id}

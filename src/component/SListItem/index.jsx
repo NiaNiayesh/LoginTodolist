@@ -1,32 +1,34 @@
-import SBoxRoot from "./SBoxRoot";
+import SListItemRoot from "./SListItemRoot";
 
-const SBox = ({
+const SListItem = ({
   bgColor,
   width,
   height,
   borderRadius,
-  todoBox,
+  todosList,
   sx,
   children,
+  disableGutters,
   ...other
 }) => {
   return (
-    <SBoxRoot
+    <SListItemRoot
       sx={sx}
       ourstate={{
         width,
         height,
         borderRadius,
         bgColor,
-        todoBox,
+        todosList,
         children,
+        disableGutters,
         ...other,
       }}
       {...other}
     >
       {children}
-    </SBoxRoot>
+    </SListItemRoot>
   );
 };
 
-export default SBox
+export default SListItem;

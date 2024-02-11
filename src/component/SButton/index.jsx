@@ -28,7 +28,7 @@ const SButton = ({
       onClick={onClick}
       endIcon={endIcon}
       sx={sx}
-      state={{
+      ourstate={{
         width,
         variant,
         type,

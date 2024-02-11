@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import { TextField } from "@mui/material";
 import colors from "../../assets/theme/base/colors";
 
-const SInputRoot = styled(TextField)(({ state }) => {
-  const { login, text } = state;
+const SInputRoot = styled(TextField)(({ ourstate }) => {
+  const { login, text } = ourstate;
 
   let loginStyle = {
     "& .MuiFormHelperText-root": {
@@ -18,7 +18,7 @@ const SInputRoot = styled(TextField)(({ state }) => {
 
   let textStyle = {
     "& .MuiInputBase-root": {
-      width: "450px",      
+      width: "400px",      
       fontSize: "20px",
 
     },

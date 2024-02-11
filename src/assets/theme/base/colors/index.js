@@ -8,9 +8,9 @@ const colors = {
     dark: "#b2dfdb",
   },
   secondary: {
-    main: "#c0ca33",
-    light: "#cddc39",
-    dark: "#afb42b",
+    main: "#e6ee9c",
+    light: "#f0f4c3",
+    dark: "#dce775",
   },
   error: {
     main: "#d32f2f",
