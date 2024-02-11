@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { Container, List } from "@mui/material";
+import { Container, List,Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import { v4 as uuidv4 } from "uuid";
@@ -63,7 +63,7 @@ export default function TodoList() {
     <PageLayout>
       <Container className="container" maxWidth="sm">
 
-        <SBox
+        <Box
           sx={{
             display: "flex",
             alignItems: "center",
@@ -81,30 +81,28 @@ export default function TodoList() {
             <SButton
               variant="contained"
               sx={{
-                mt: 1,
-                ml: 1,
-                height: "3.4rem",
-              }}
+                ml:"5px"
+               }}
+              edit
               endIcon={<EditIcon />}
               onClick={updateTodo}
             >
-              Update
+              Edit
             </SButton>
           ) : (
             <SButton
               variant="contained"
               sx={{
-                mt: 1,
-                ml: 1,
-                height: "3.4rem",
+               ml:"5px"
               }}
+              add
               endIcon={<AddIcon />}
               onClick={addTodo}
             >         
               Add
             </SButton>
           )}
-        </SBox>
+        </Box>
         <List sx={{ margin: 1, width: "450px" }}>
           {todos.map((todo) => (
             <TodoItem

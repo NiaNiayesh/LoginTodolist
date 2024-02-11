@@ -92,7 +92,6 @@ export default function LoginForm() {
             sx={{
               padding: 2,
               mt: 1,
-              fontWeight: "bold",
             }}
             login
             

@@ -2,12 +2,47 @@ import styled from "@emotion/styled";
 import colors from "../../assets/theme/base/colors";
 import { Button } from "@mui/material";
 
-const SButtonRoot = styled(Button)(({onClick})=>{
-    var loginstyles = {
-        color: colors.black.main
+const SButtonRoot = styled(Button)(({mystate})=>{
+
+    const {login, add, edit} = mystate
+
+    let loginStyles = {
+        color: colors.white.main,
+        backgroundColor: colors.primary.main,
+        fontFamily: "Raleway, Arial",
+        fontSize: "17px",
+        fontWeight: 500,
+        height: "50px",
+         "&:hover": {
+        backgroundColor: colors.primary.light ,
+      },
+    }
+    let addStyle = {
+        color: colors.white.main,
+        backgroundColor: colors.primary.main,
+        fontFamily: "Raleway, Arial",
+        fontSize: "18px",
+        height: "50px",
+        width: "90px",
+        "&:hover": {
+            backgroundColor: colors.primary.light ,
+          },
+    }
+    let editStyle = {
+        color: colors.white.main,
+        backgroundColor: colors.primary.main,
+        fontFamily: "Raleway, Arial",
+        fontSize: "18px",
+        height: "50px",
+        width: "90px",
+        "&:hover": {
+            backgroundColor: colors.primary.light ,
+          },
     }
     return {
-        ...(onClick && loginstyles )
+        ...(login && loginStyles ),
+        ...(add && addStyle),
+        ...(edit && editStyle)
     }
 })
 export default SButtonRoot;

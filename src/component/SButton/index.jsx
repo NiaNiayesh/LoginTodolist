@@ -1,6 +1,4 @@
-import { Button } from "@mui/material";
 import SButtonRoot from "./SButtonRoot";
-
 
 const SButton = ({
   width,
@@ -15,21 +13,39 @@ const SButton = ({
   sx,
   onClick,
   endIcon,
+  login,
+  add,
+  edit,
   children,
   ...other
 }) => {
-
-
- 
   return (
     <SButtonRoot
       variant="contained"
       type={type}
-      color={color}
+      color="primary"
       fullWidth={fullWidth}
       onClick={onClick}
       endIcon={endIcon}
-      // sx={{ ...buttonStyle, ...sx }}
+      sx={sx}
+      mystate={{
+        width,
+        variant,
+        type,
+        color,
+        size,
+        border,
+        borderRadius,
+        bgColor,
+        fullWidth,
+        onClick,
+        endIcon,
+        login,
+        add,
+        edit,
+        children,
+        ...other,
+      }}
       {...other}
     >
       {children}
