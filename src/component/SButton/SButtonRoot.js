@@ -22,7 +22,7 @@ const SButtonRoot = styled(Button)(({state})=>{
         backgroundColor: colors.primary.main,
         fontFamily: "Raleway, Arial",
         fontSize: "18px",
-        height: "50px",
+        height: "60px",
         width: "90px",
         "&:hover": {
             backgroundColor: colors.primary.light ,
@@ -33,7 +33,7 @@ const SButtonRoot = styled(Button)(({state})=>{
         backgroundColor: colors.primary.main,
         fontFamily: "Raleway, Arial",
         fontSize: "18px",
-        height: "50px",
+        height: "60px",
         width: "90px",
         "&:hover": {
             backgroundColor: colors.primary.light ,

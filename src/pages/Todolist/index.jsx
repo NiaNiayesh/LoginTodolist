@@ -1,14 +1,12 @@
 import React, { createContext, useEffect, useState } from "react";
-import { Container, List,Box } from "@mui/material";
+import { Container, List, Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import { v4 as uuidv4 } from "uuid";
 import TodoItem from "./TodoItem/index";
 import { PageLayout } from "../../layouts/PageLayout";
 import SButton from "../../component/SButton";
-import STextFiled from "../../component/STextFiled";
-import SBox from "../../component/SBox";
-
+import SInput from "../../component/SInput";
 
 export const TodoContext = createContext();
 
@@ -59,62 +57,61 @@ export default function TodoList() {
   };
 
   return (
-    <TodoContext.Provider value={{todos,addTodo,editTodo,deleteTodo}}>
-    <PageLayout>
-      <Container className="container" maxWidth="sm">
-
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <STextFiled
-            label="Add a new todo"
-            variant="outlined"
-            value={newTodo}
-            sx={{ mt: 2, width: "450px" }}
-            onChange={(e) => setNewTodo(e.target.value)}
-          />
-          {editingTodo ? (
-            <SButton
-              variant="contained"
-              sx={{
-                ml:"5px"
-               }}
-              edit
-              endIcon={<EditIcon />}
-              onClick={updateTodo}
-            >
-              Edit
-            </SButton>
-          ) : (
-            <SButton
-              variant="contained"
-              sx={{
-               ml:"5px"
-              }}
-              add
-              endIcon={<AddIcon />}
-              onClick={addTodo}
-            >         
-              Add
-            </SButton>
-          )}
-        </Box>
-        <List sx={{ margin: 1, width: "450px" }}>
-          {todos.map((todo) => (
-            <TodoItem
-              key={todo.id}
-              todo={todo}
-              editTodo={editTodo}
-              deleteTodo={deleteTodo}
+    <TodoContext.Provider value={{ todos, addTodo, editTodo, deleteTodo }}>
+      <PageLayout>
+        <Container className="container" maxWidth="sm">
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <SInput
+              text
+              label="Add a todo"
+              variant="filled"
+              value={newTodo}
+              onChange={(e) => setNewTodo(e.target.value)}
             />
-          ))}
-        </List>
-      </Container>
-    </PageLayout>
+            {editingTodo ? (
+              <SButton
+                edit
+                variant="contained"
+                sx={{
+                  ml: "5px",
+                }}
+                endIcon={<EditIcon />}
+                onClick={updateTodo}
+              >
+                Edit
+              </SButton>
+            ) : (
+              <SButton
+                add
+                variant="contained"
+                sx={{
+                  ml: "5px",
+                }}
+                endIcon={<AddIcon />}
+                onClick={addTodo}
+              >
+                Add
+              </SButton>
+            )}
+          </Box>
+          <List sx={{ margin: 1, width: "450px" }}>
+            {todos.map((todo) => (
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                editTodo={editTodo}
+                deleteTodo={deleteTodo}
+              />
+            ))}
+          </List>
+        </Container>
+      </PageLayout>
     </TodoContext.Provider>
   );
 }
