@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import colors from "../../assets/theme/base/colors";
 import { Button } from "@mui/material";
 
-const SButtonRoot = styled(Button)(({mystate})=>{
+const SButtonRoot = styled(Button)(({state})=>{
 
-    const {login, add, edit} = mystate
+    const {login, add, edit} = state
 
     let loginStyles = {
         color: colors.white.main,
