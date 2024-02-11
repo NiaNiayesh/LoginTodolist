@@ -2,9 +2,10 @@
 const ButtonThemeOption = {
   styleOverrides: {
     root: {
-      "&:hover": {
-        backgroundColor: "#afb42b" ,
-      },
+      border: "none"
+      // "&:hover": {
+      //   backgroundColor: "#afb42b" ,
+      // },
     },
   },
 };

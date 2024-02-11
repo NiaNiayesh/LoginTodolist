@@ -8,6 +8,8 @@ import { PageLayout } from "../../layouts/PageLayout";
 import SButton from "../../component/SButton";
 import STextFiled from "../../component/STextFiled";
 import SBox from "../../component/SBox";
+
+
 export const TodoContext = createContext();
 
 export default function TodoList() {
@@ -60,6 +62,7 @@ export default function TodoList() {
     <TodoContext.Provider value={{todos,addTodo,editTodo,deleteTodo}}>
     <PageLayout>
       <Container className="container" maxWidth="sm">
+
         <SBox
           sx={{
             display: "flex",
@@ -97,7 +100,7 @@ export default function TodoList() {
               }}
               endIcon={<AddIcon />}
               onClick={addTodo}
-            >
+            >         
               Add
             </SButton>
           )}

@@ -7,7 +7,6 @@ const Header = () => {
     <AppBar >
       <STypography
         variant="h2"
-        color="white"
         align="center"
         sx={{ flexGrow: 1}}
       >
