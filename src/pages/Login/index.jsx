@@ -1,6 +1,6 @@
 import { Container, Paper, Typography } from "@mui/material";
 import React from "react";
-import { PageLayout } from "../../layouts/PageLayout";
+import { PageLayout } from "../../component/layouts/PageLayout";
 import LoginForm from "./Loginform/index";
 
 export default function Login() {

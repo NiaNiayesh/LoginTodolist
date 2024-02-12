@@ -23,7 +23,7 @@ const SButton = ({
     <SButtonRoot
       variant="contained"
       type={type}
-      color="primary"
+      color={color}
       fullWidth={fullWidth}
       onClick={onClick}
       endIcon={endIcon}

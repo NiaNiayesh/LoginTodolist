@@ -4,7 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import { v4 as uuidv4 } from "uuid";
 import TodoItem from "./TodoItem/index";
-import { PageLayout } from "../../layouts/PageLayout";
+import { PageLayout } from "../../component/layouts/PageLayout";
 import SButton from "../../component/SButton";
 import SInput from "../../component/SInput";
 import SBox from "../../component/SBox";

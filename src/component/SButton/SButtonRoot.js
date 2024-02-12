@@ -1,42 +1,44 @@
 import styled from "@emotion/styled";
-import colors from "../../assets/theme/base/colors";
 import { Button } from "@mui/material";
+import { useTheme } from "@emotion/react";
 
 const SButtonRoot = styled(Button)(({ourstate})=>{
 
     const {login, add, edit} = ourstate
+    const theme = useTheme()
+    const {white,primary} = theme.palette
 
     let loginStyles = {
-        color: colors.white.main,
-        backgroundColor: colors.primary.main,
+        color:white.main,
+        backgroundColor: primary.main,
         fontFamily: "Raleway, Arial",
         fontSize: "17px",
         fontWeight: 500,
         height: "50px",
          "&:hover": {
-        backgroundColor: colors.primary.light ,
+        backgroundColor: primary.light ,
       },
     }
     let addStyle = {
-        color: colors.white.main,
-        backgroundColor: colors.primary.main,
+        color: white.main,
+        backgroundColor: primary.main,
         fontFamily: "Raleway, Arial",
         fontSize: "18px",
         height: "60px",
         width: "90px",
         "&:hover": {
-            backgroundColor: colors.primary.light ,
+            backgroundColor: primary.light ,
           },
     }
     let editStyle = {
-        color: colors.white.main,
-        backgroundColor: colors.primary.main,
+        color: white.main,
+        backgroundColor: primary.main,
         fontFamily: "Raleway, Arial",
         fontSize: "18px",
         height: "60px",
         width: "90px",
         "&:hover": {
-            backgroundColor: colors.primary.light ,
+            backgroundColor: primary.light ,
           },
     }
     return {
