@@ -12,8 +12,8 @@ import {
   IconButton,
   Typography
 } from "@mui/material";
-import SButton from "../../../component/SButton";
-import SInput from "../../../component/SInput";
+import SButton from "../../../Components/SButton";
+import SInput from "../../../Components/SInput";
 import { Person as PersonIcon } from "@mui/icons-material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";

@@ -1,5 +1,5 @@
-import Login from "../pages/Login/index";
-import Todolist from "../pages/Todolist/index";
+import Login from "../Pages/Login/index";
+import Todolist from "../Pages/Todolist/index";
 let routes = [
   {
     path: "/",

@@ -1,15 +1,14 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, List} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import { v4 as uuidv4 } from "uuid";
 import TodoItem from "./TodoItem/index";
-import { PageLayout } from "../../component/layouts/PageLayout";
-import SButton from "../../component/SButton";
-import SInput from "../../component/SInput";
-import SBox from "../../component/SBox";
+import { PageLayout } from "../../Components/Layouts/PageLayout";
+import SButton from "../../Components/SButton";
+import SInput from "../../Components/SInput";
+import SBox from "../../Components/SBox";
 
-export const TodoContext = createContext();
 
 export default function TodoList() {
   const [todos, setTodos] = useState([]);
@@ -58,7 +57,6 @@ export default function TodoList() {
   };
 
   return (
-    <TodoContext.Provider value={{ todos, addTodo, editTodo, deleteTodo }}>
       <PageLayout>
         <Container
           className="container"
@@ -111,6 +109,5 @@ export default function TodoList() {
           </List>
         </Container>
       </PageLayout>
-    </TodoContext.Provider>
   );
 }

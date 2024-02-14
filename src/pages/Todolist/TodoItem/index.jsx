@@ -1,17 +1,13 @@
-import React, { useContext } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
-  colors,
 } from "@mui/material";
-import { TodoContext } from "..";
-import SListItem from "../../../component/SListItem";
+import SListItem from "../../../Components/SListItem";
 
-export default function TodoItem({ todo }) {
-  const { editTodo, deleteTodo } = useContext(TodoContext);
+export default function TodoItem({ todo,editTodo, deleteTodo }) {
   return (
     <SListItem 
      todosList

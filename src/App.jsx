@@ -1,4 +1,4 @@
-import routes from "./routes/index";
+import routes from "./Routes/index";
 import { useRoutes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
