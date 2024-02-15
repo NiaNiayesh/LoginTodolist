@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Container, List} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -8,54 +8,84 @@ import { PageLayout } from "../../Components/Layouts/PageLayout";
 import SButton from "../../Components/SButton";
 import SInput from "../../Components/SInput";
 import SBox from "../../Components/SBox";
+import { TodoContext } from "../../Context/TodoContext";
 
 
 export default function TodoList() {
-  const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState("");
-  const [editingTodo, setEditingTodo] = useState(null);
+  const {state,dispatch} = useContext(TodoContext)
+  const {todos,newTodo,editingTodo} = state
+  // const [todos, setTodos] = useState([]);
+  // const [newTodo, setNewTodo] = useState("");
+  // const [editingTodo, setEditingTodo] = useState(null);
 
-  useEffect(() => {
-    setTodos(todos);
-  }, [todos]);
+  // useEffect(() => {
+  //   setTodos(todos);
+  // }, [todos]);
 
   const addTodo = () => {
     if (newTodo.trim()) {
-      setTodos([
-        ...todos,
-        {
+      dispatch({
+        type: "ADD_TODO",
+        payload: {
           id: uuidv4(),
-          title: newTodo,
-        },
-      ]);
-      setNewTodo("");
+          title: newTodo
+        }
+      })
+      // setTodos([
+      //   ...todos,
+      //   {
+      //     id: uuidv4(),
+      //     title: newTodo,
+      //   },
+      // ]);
+      // setNewTodo("");
     }
   };
 
   const editTodo = (id) => {
-    const todo = todos.find((todo) => todo.id === id);
-    if (todo) {
-      setNewTodo(todo.title);
-      setEditingTodo(todo);
-    }
+    dispatch({
+      type: "EDIT_TODO",
+      payload: {
+        id
+      }
+    })
+    // const todo = todos.find((todo) => todo.id === id);
+    // if (todo) {
+    //   setNewTodo(todo.title);
+    //   setEditingTodo(todo);
+    // }
   };
 
   const updateTodo = () => {
     if (editingTodo) {
-      const updatedTodos = todos.map((todo) =>
-        todo.id === editingTodo.id ? { ...todo, title: newTodo } : todo
-      );
-      setTodos(updatedTodos);
-      setNewTodo("");
-      setEditingTodo(null);
+      dispatch({
+        type: "UPDATE_TODO"
+      })
+      // const updatedTodos = todos.map((todo) =>
+      //   todo.id === editingTodo.id ? { ...todo, title: newTodo } : todo
+      // );
+      // setTodos(updatedTodos);
+      // setNewTodo("");
+      // setEditingTodo(null);
     }
   };
 
   const deleteTodo = (id) => {
-    const updatedTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(updatedTodos);
+    dispatch({
+      type: "DELETE_TODO",
+      payload: {
+        id
+      }
+    })
+    // const updatedTodos = todos.filter((todo) => todo.id !== id);
+    // setTodos(updatedTodos);
   };
-
+  const setNewTodo = (value) => {
+    dispatch({
+      type: "SET_NEW_TODO",
+      payload: value,
+    });
+  };
   return (
       <PageLayout>
         <Container
