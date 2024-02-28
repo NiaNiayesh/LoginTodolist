@@ -13,7 +13,7 @@ export default function TodoItem({ todo,editTodo, deleteTodo }) {
      todosList
      key={todo.id} 
      disableGutters>
-      <ListItemText primary={todo.title} />
+      <ListItemText primary={todo.tittle} />
       <ListItemSecondaryAction>
         <IconButton onClick={() => editTodo(todo.id)}>
           <EditIcon />

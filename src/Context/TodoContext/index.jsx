@@ -6,6 +6,7 @@ const initialState = {
   todos: [],
   newTodo: "",
   editingTodo: null,
+  
 };
 const reducer = (state, action) => {
   switch (action.type) {
@@ -15,8 +16,8 @@ const reducer = (state, action) => {
         todos: [
           ...state.todos,
           {
-            id: action.payload.id,
-            title: action.payload.title,
+            tittle: action.payload.tittle,
+            userId: action.payload.userId
           },
         ],
         newTodo: "",
@@ -27,13 +28,13 @@ const reducer = (state, action) => {
       );
       return {
         ...state,
-        newTodo: editingTodo.title,
+        newTodo: editingTodo.tittle,
         editingTodo,
       };
     case "UPDATE_TODO":
       const updatedTodos = state.todos.map((todo) =>
         todo.id === state.editingTodo.id
-          ? { ...todo, title: state.newTodo }
+          ? { ...todo, tittle: state.newTodo }
           : todo
       );
       return {
@@ -56,6 +57,11 @@ const reducer = (state, action) => {
         ...state,
         newTodo: action.payload,
       };
+    case "GET_TODOS":
+      return {
+        ...state,
+        todos: action.payload,
+      }
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }

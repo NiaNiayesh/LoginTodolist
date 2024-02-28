@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Container, List} from "@mui/material";
+import React, { useContext, useEffect } from "react";
+import { Container, List } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import { v4 as uuidv4 } from "uuid";
@@ -9,36 +9,58 @@ import SButton from "../../Components/SButton";
 import SInput from "../../Components/SInput";
 import SBox from "../../Components/SBox";
 import { TodoContext } from "../../Context/TodoContext";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 
 export default function TodoList() {
-  const {state,dispatch} = useContext(TodoContext)
-  const {todos,newTodo,editingTodo} = state
-  // const [todos, setTodos] = useState([]);
-  // const [newTodo, setNewTodo] = useState("");
-  // const [editingTodo, setEditingTodo] = useState(null);
+  const { state, dispatch } = useContext(TodoContext);
+  const { todos, newTodo, editingTodo } = state;
 
-  // useEffect(() => {
-  //   setTodos(todos);
-  // }, [todos]);
 
-  const addTodo = () => {
-    if (newTodo.trim()) {
-      dispatch({
-        type: "ADD_TODO",
-        payload: {
-          id: uuidv4(),
-          title: newTodo
-        }
-      })
-      // setTodos([
-      //   ...todos,
-      //   {
-      //     id: uuidv4(),
-      //     title: newTodo,
-      //   },
-      // ]);
-      // setNewTodo("");
+
+  useEffect(() => {
+    
+    const getALLTodos = async () => {
+      try {
+        const res = await axios.get("https://niyayesh.birkar.ir/Note/GetAll");
+
+        dispatch({
+          type: "GET_TODOS",
+          payload: res.data,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getALLTodos();
+
+   
+  }, [todos]);
+
+  const addTodo = async () => {
+    try {
+      if (newTodo.trim()) {
+        const response = await axios.post(
+          "https://niyayesh.birkar.ir/Note/CreateNote",
+          {
+            id: 0,
+            tittle: newTodo,
+            userId: 5,
+          }
+        );
+
+        dispatch({
+          type: "ADD_TODO",
+          payload: {
+            id: response.data.id,
+            tittle: newTodo,
+            userId: 5,
+          },
+        });
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -46,39 +68,46 @@ export default function TodoList() {
     dispatch({
       type: "EDIT_TODO",
       payload: {
-        id
-      }
-    })
-    // const todo = todos.find((todo) => todo.id === id);
-    // if (todo) {
-    //   setNewTodo(todo.title);
-    //   setEditingTodo(todo);
-    // }
+        id,
+      },
+    });
   };
 
-  const updateTodo = () => {
+  const updateTodo = async () => {
     if (editingTodo) {
-      dispatch({
-        type: "UPDATE_TODO"
-      })
-      // const updatedTodos = todos.map((todo) =>
-      //   todo.id === editingTodo.id ? { ...todo, title: newTodo } : todo
-      // );
-      // setTodos(updatedTodos);
-      // setNewTodo("");
-      // setEditingTodo(null);
+      try {
+        const response = await axios.put(
+          "https://niyayesh.birkar.ir/Note/UpdateNote",
+          {
+            id: editingTodo.id,
+            tittle: newTodo,
+            userId: editingTodo.userId,
+          }
+        );
+        dispatch({
+          type: "UPDATE_TODO",
+          id: response.data.id,
+          tittle: response.data.tittle,
+          userId: response.data.userId,
+        });
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
-  const deleteTodo = (id) => {
-    dispatch({
-      type: "DELETE_TODO",
-      payload: {
-        id
-      }
-    })
-    // const updatedTodos = todos.filter((todo) => todo.id !== id);
-    // setTodos(updatedTodos);
+  const deleteTodo = async (id) => {
+    try {
+      await axios.delete(`https://niyayesh.birkar.ir/Note/DeleteNote?id=${id}`);
+      dispatch({
+        type: "DELETE_TODO",
+        payload: {
+          id,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
   const setNewTodo = (value) => {
     dispatch({
@@ -87,57 +116,52 @@ export default function TodoList() {
     });
   };
   return (
-      <PageLayout>
-        <Container
-          className="container"
-          maxWidth="sm"
-          sx={{ mt: "150px" }}
-        >
-          <SBox todoBox>
-            <SInput
-              text
-              label="Add a todo"
-              variant="filled"
-              value={newTodo}
-              onChange={(e) => setNewTodo(e.target.value)}
+    <PageLayout>
+      <Container className="container" maxWidth="sm" sx={{ mt: "150px" }}>
+        <SBox todoBox>
+          <SInput
+            text
+            label="Add a todo"
+            value={newTodo}
+            onChange={(e) => setNewTodo(e.target.value)}
+          />
+          {editingTodo ? (
+            <SButton
+              edit
+              variant="contained"
+              sx={{
+                ml: "5px",
+              }}
+              endIcon={<EditIcon />}
+              onClick={updateTodo}
+            >
+              Edit
+            </SButton>
+          ) : (
+            <SButton
+              add
+              variant="contained"
+              sx={{
+                ml: "5px",
+              }}
+              endIcon={<AddIcon />}
+              onClick={addTodo}
+            >
+              Add
+            </SButton>
+          )}
+        </SBox>
+        <List sx={{ m: 1, width: "450px" }}>
+          {todos.map((todo) => (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              editTodo={editTodo}
+              deleteTodo={deleteTodo}
             />
-            {editingTodo ? (
-              <SButton
-                edit
-                variant="contained"
-                sx={{
-                  ml: "5px",
-                }}
-                endIcon={<EditIcon />}
-                onClick={updateTodo}
-              >
-                Edit
-              </SButton>
-            ) : (
-              <SButton
-                add
-                variant="contained"
-                sx={{
-                  ml: "5px",
-                }}
-                endIcon={<AddIcon />}
-                onClick={addTodo}
-              >
-                Add
-              </SButton>
-            )}
-          </SBox>
-          <List sx={{ m: 1, width: "450px" }}>
-            {todos.map((todo) => (
-              <TodoItem
-                key={todo.id}
-                todo={todo}
-                editTodo={editTodo}
-                deleteTodo={deleteTodo}
-              />
-            ))}
-          </List>
-        </Container>
-      </PageLayout>
+          ))}
+        </List>
+      </Container>
+    </PageLayout>
   );
 }

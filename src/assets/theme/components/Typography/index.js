@@ -36,7 +36,9 @@ const TypographyThemeOption = {
       fontSize: " 15px",
     },
     body1: {
-        fontWeight: 500
+        fontWeight: 500,
+        fontSize: " 19px",
+
     },
     body2: {
         fontWeight: 500

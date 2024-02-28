@@ -20,8 +20,9 @@ const SInputRoot = styled(TextField)(({ ourstate }) => {
 
   let textStyle = {
     "& .MuiInputBase-root": {
-      width: "400px",      
+      width: "450px",      
       fontSize: "20px",
+     
 
     },
     "& .MuiInputLabel-root": {
