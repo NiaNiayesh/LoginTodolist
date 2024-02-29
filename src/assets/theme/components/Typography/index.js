@@ -21,7 +21,8 @@ const TypographyThemeOption = {
       fontWeight: 600,
     },
     h4: {
-      fontWeight: 500,
+      fontSize: "35px",
+      fontWeight: 600,
     },
     h5: {
       fontWeight: 600,

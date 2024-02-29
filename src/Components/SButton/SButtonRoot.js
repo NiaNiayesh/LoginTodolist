@@ -4,9 +4,9 @@ import { useTheme } from "@emotion/react";
 
 const SButtonRoot = styled(Button)(({ourstate})=>{
 
-    const {login, add, edit} = ourstate
+    const {login,logout, add, edit,confirm} = ourstate
     const theme = useTheme()
-    const {white,primary} = theme.palette
+    const {white,secondary,black,primary} = theme.palette
 
     let loginStyles = {
         color:white.main,
@@ -41,10 +41,32 @@ const SButtonRoot = styled(Button)(({ourstate})=>{
             backgroundColor: primary.light ,
           },
     }
+    let logOutStyle = {
+        color: black.main,
+        backgroundColor: primary.light,
+        fontFamily: "Raleway, Arial",
+        fontSize: "18px",
+        fontWeight: "bold",
+        "&:hover": {
+            backgroundColor: secondary.light,
+          },
+    }
+    let confirmStyle = {
+        color: white.main,
+        fontFamily: "Raleway, Arial",
+        fontSize: "15px",
+        fontWeight: "bold",
+        width: "110px",
+        "&:hover": {
+            backgroundColor: primary.light ,
+          }
+    }
     return {
         ...(login && loginStyles ),
         ...(add && addStyle),
-        ...(edit && editStyle)
+        ...(edit && editStyle),
+        ...(logout && logOutStyle),
+        ...(confirm && confirmStyle)
     }
 })
 export default SButtonRoot;

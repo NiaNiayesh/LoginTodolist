@@ -51,6 +51,8 @@ const reducer = (state, action) => {
       return {
         ...state,
         todos: filteredTodos,
+        newTodo: "",
+        editingTodo: null,
       };
     case "SET_NEW_TODO":
       return {

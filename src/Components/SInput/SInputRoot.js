@@ -34,6 +34,7 @@ const SInputRoot = styled(TextField)(({ ourstate }) => {
   return {
     ...(login && loginStyle),
     ...(text && textStyle),
+
   };
 });
 

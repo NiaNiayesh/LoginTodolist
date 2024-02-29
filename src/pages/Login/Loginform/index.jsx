@@ -1,3 +1,4 @@
+import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -19,13 +20,14 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const validationSchema = yup.object({
   userName: yup.string().required("Email is required"),
   password: yup.string().required("Password is required"),
 });
-
 export default function LoginForm() {
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -34,8 +36,6 @@ export default function LoginForm() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
-  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -47,47 +47,32 @@ export default function LoginForm() {
 
     onSubmit: (values) => {
       const getData = async () => {
-    try{
+        try {
           const response = await axios.post(
             "https://niyayesh.birkar.ir/User/Login/Login",
             {
               userName: values.userName,
               password: values.password,
               isActive: true,
-
             }
           );
-         
+
           if (response.status === 200) {
-       
             toast.success("Login Successfuly", {
               position: toast.POSITION.BOTTOM_RIGHT,
             });
+            Cookies.set("loginToken", response.data.token, { expires: 1 });
             navigate("/todolist");
           }
-          }catch(error){
-            console.error(error)
-            console.log(error.response.data.Message)
-            toast.error("Invalid username or password", {
-              position: toast.POSITION.BOTTOM_RIGHT,
-            }); 
-          }
+        } catch (error) {
+          console.error(error);
+          console.log(error.response.data.Message);
+          toast.error("Invalid username or password", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
         }
+      };
       getData();
-
-      // if (
-      //   values.username === "niayesh@gmail.com" &&
-      //   values.password === "nia12345"
-      // ) {
-      //   toast.success("Login Successfuly", {
-      //     position: toast.POSITION.BOTTOM_RIGHT,
-      //   });
-      //   navigate("/todolist");
-      // } else {
-      //   toast.error("Invalid username or password", {
-      //     position: toast.POSITION.BOTTOM_RIGHT,
-      //   });
-      // }
     },
   });
 
@@ -152,7 +137,7 @@ export default function LoginForm() {
             control={<Checkbox defaultChecked />}
             label="Remember me"
           />
-          <Link href="#" variant="body1">
+          <Link href="/forgetpassword" variant="body1">
             Forgot password?
           </Link>
         </Grid>

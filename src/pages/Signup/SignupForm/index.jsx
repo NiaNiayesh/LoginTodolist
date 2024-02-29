@@ -146,14 +146,14 @@ export default function SignupForm() {
           <SInput
             login
             label="Confirm Password*"
-            id="password"
-            name="password"
+            id="confirmPassword"
+            name="confirmPassword"
             fullWidth
             type={showPassword ? "text" : "password"}
-            value={formik.values.password}
+            value={formik.values.confirmPassword}
             onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
+            error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+            helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -169,21 +169,6 @@ export default function SignupForm() {
               ),
             }}
           />
-        </Grid>
-        <Grid
-          item
-          xs
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-        >
-          <FormControlLabel
-            control={<Checkbox defaultChecked />}
-            label="Remember me"
-          />
-          <Link href="#" variant="body1">
-            Forgot password?
-          </Link>
         </Grid>
         <Grid item xs={12}>
           <SButton

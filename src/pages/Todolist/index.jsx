@@ -2,7 +2,8 @@ import React, { useContext, useEffect } from "react";
 import { Container, List } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
-import { v4 as uuidv4 } from "uuid";
+import LogoutIcon from '@mui/icons-material/Logout';
+
 import TodoItem from "./TodoItem/index";
 import { PageLayout } from "../../Components/Layouts/PageLayout";
 import SButton from "../../Components/SButton";
@@ -11,16 +12,17 @@ import SBox from "../../Components/SBox";
 import { TodoContext } from "../../Context/TodoContext";
 import axios from "axios";
 import Cookies from "js-cookie";
-
-
+import { useNavigate } from "react-router-dom";
 export default function TodoList() {
   const { state, dispatch } = useContext(TodoContext);
   const { todos, newTodo, editingTodo } = state;
-
-
+  const navigate = useNavigate()
 
   useEffect(() => {
-    
+    const getLoginToken = Cookies.get("loginToken")
+    if(!getLoginToken){
+      navigate('/')
+    }
     const getALLTodos = async () => {
       try {
         const res = await axios.get("https://niyayesh.birkar.ir/Note/GetAll");
@@ -34,8 +36,6 @@ export default function TodoList() {
       }
     };
     getALLTodos();
-
-   
   }, [todos]);
 
   const addTodo = async () => {
@@ -115,9 +115,26 @@ export default function TodoList() {
       payload: value,
     });
   };
+  const logout = () => {
+    Cookies.remove("loginToken")
+  }
   return (
     <PageLayout>
-      <Container className="container" maxWidth="sm" sx={{ mt: "150px" }}>
+              <Container className="container"  maxWidth="xl"  sx={{display: "flex", justifyContent:"flex-end",mt: "140px" }}>
+        <SButton
+              logout
+              variant="contained"
+              sx={{
+                ml: "5px",
+              }}
+              endIcon={<LogoutIcon />}
+              onClick={logout}
+            >
+              Logout
+            </SButton>
+        </Container>
+      <Container className="container" maxWidth="sm" sx={{ mt: "5px" }}>
+
         <SBox todoBox>
           <SInput
             text
