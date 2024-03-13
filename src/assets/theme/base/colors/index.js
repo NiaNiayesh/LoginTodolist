@@ -4,8 +4,8 @@ const colors = {
   },
   primary: {
     main: "#00897B",
-    light: "#26A69A",
-    dark: "#b2dfdb",
+    light: "#b2dfdb",
+    dark: "#26A69A",
   },
   secondary: {
     main: "#e6ee9c",

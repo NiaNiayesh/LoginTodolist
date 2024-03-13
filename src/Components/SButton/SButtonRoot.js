@@ -6,7 +6,7 @@ const SButtonRoot = styled(Button)(({ourstate})=>{
 
     const {login,logout, add, edit,confirm} = ourstate
     const theme = useTheme()
-    const {white,secondary,black,primary} = theme.palette
+    const {white,black,primary} = theme.palette
 
     let loginStyles = {
         color:white.main,
@@ -16,7 +16,7 @@ const SButtonRoot = styled(Button)(({ourstate})=>{
         fontWeight: 500,
         height: "50px",
          "&:hover": {
-        backgroundColor: primary.light ,
+        backgroundColor: primary.dark ,
       },
     }
     let addStyle = {
@@ -27,7 +27,7 @@ const SButtonRoot = styled(Button)(({ourstate})=>{
         height: "60px",
         width: "90px",
         "&:hover": {
-            backgroundColor: primary.light ,
+            backgroundColor: primary.dark ,
           },
     }
     let editStyle = {
@@ -38,7 +38,7 @@ const SButtonRoot = styled(Button)(({ourstate})=>{
         height: "60px",
         width: "90px",
         "&:hover": {
-            backgroundColor: primary.light ,
+            backgroundColor: primary.dark ,
           },
     }
     let logOutStyle = {
@@ -48,7 +48,7 @@ const SButtonRoot = styled(Button)(({ourstate})=>{
         fontSize: "18px",
         fontWeight: "bold",
         "&:hover": {
-            backgroundColor: secondary.light,
+            backgroundColor: primary.dark,
           },
     }
     let confirmStyle = {
@@ -58,7 +58,7 @@ const SButtonRoot = styled(Button)(({ourstate})=>{
         fontWeight: "bold",
         width: "110px",
         "&:hover": {
-            backgroundColor: primary.light ,
+            backgroundColor: primary.dark ,
           }
     }
     return {

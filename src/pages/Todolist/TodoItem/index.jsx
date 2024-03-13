@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import SListItem from "../../../Components/SListItem";
 
-export default function TodoItem({ todo,editTodo, deleteTodo }) {
+export default function TodoItem({ todo,handleEditTodo, handleDeleteTodo }) {
   return (
     <SListItem 
      todosList
@@ -15,10 +15,10 @@ export default function TodoItem({ todo,editTodo, deleteTodo }) {
      disableGutters>
       <ListItemText primary={todo.tittle} />
       <ListItemSecondaryAction>
-        <IconButton onClick={() => editTodo(todo.id)}>
+        <IconButton onClick={() => handleEditTodo(todo.id)}>
           <EditIcon />
         </IconButton>
-        <IconButton onClick={() => deleteTodo(todo.id)}>
+        <IconButton onClick={() => handleDeleteTodo(todo.id)}>
           <DeleteIcon />
         </IconButton>
       </ListItemSecondaryAction>

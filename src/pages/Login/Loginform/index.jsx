@@ -21,13 +21,16 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { setLoginToken } from "../../../Features/user/userSlice";
 
 const validationSchema = yup.object({
   userName: yup.string().required("Email is required"),
-  password: yup.string().required("Password is required"),
+  password: yup.string().required("Password is required").min(6,"The password must be at least 6 characters long")
 });
 export default function LoginForm() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -61,6 +64,7 @@ export default function LoginForm() {
             toast.success("Login Successfuly", {
               position: toast.POSITION.BOTTOM_RIGHT,
             });
+            dispatch(setLoginToken(response.data.token))
             Cookies.set("loginToken", response.data.token, { expires: 1 });
             navigate("/todolist");
           }

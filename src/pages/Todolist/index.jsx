@@ -13,24 +13,30 @@ import { TodoContext } from "../../Context/TodoContext";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { removeLoginToken } from "../../Features/user/userSlice";
+import { setNewTodo, addTodo, editTodo, getTodos, updateTodo,deleteTodo} from "../../Features/todo/todoSlice";
+
+
 export default function TodoList() {
-  const { state, dispatch } = useContext(TodoContext);
-  const { todos, newTodo, editingTodo } = state;
+  const todos = useSelector((state) => state.todo.todos)
+  const newTodo = useSelector((state) => state.todo.newTodo)
+  const editingTodoId = useSelector((state) => state.todo.editingTodoId)
+
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const getLoginToken = Cookies.get("loginToken")
     if(!getLoginToken){
       navigate('/')
+      dispatch(removeLoginToken())
     }
     const getALLTodos = async () => {
       try {
         const res = await axios.get("https://niyayesh.birkar.ir/Note/GetAll");
 
-        dispatch({
-          type: "GET_TODOS",
-          payload: res.data,
-        });
+        dispatch(getTodos(res.data))
       } catch (error) {
         console.error(error);
       }
@@ -38,7 +44,7 @@ export default function TodoList() {
     getALLTodos();
   }, [todos]);
 
-  const addTodo = async () => {
+  const handleAddTodo = async () => {
     try {
       if (newTodo.trim()) {
         const response = await axios.post(
@@ -49,74 +55,66 @@ export default function TodoList() {
             userId: 5,
           }
         );
-
-        dispatch({
-          type: "ADD_TODO",
-          payload: {
-            id: response.data.id,
-            tittle: newTodo,
-            userId: 5,
-          },
-        });
+        dispatch(addTodo({
+          id: response.data.id,
+          tittle: newTodo,
+          userId: 5
+        }))
+        
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const editTodo = (id) => {
-    dispatch({
-      type: "EDIT_TODO",
-      payload: {
-        id,
-      },
-    });
+  const handleEditTodo = (id) => {
+    const editingTodoId = todos.find((todo) => todo.id === id)
+    if(editingTodoId){
+      dispatch(editTodo(editingTodoId))
+    }
+
   };
 
-  const updateTodo = async () => {
-    if (editingTodo) {
+  const handleUpdateTodo = async () => {
+    if (editingTodoId) {
       try {
         const response = await axios.put(
           "https://niyayesh.birkar.ir/Note/UpdateNote",
           {
-            id: editingTodo.id,
+            id: editingTodoId.id,
             tittle: newTodo,
-            userId: editingTodo.userId,
+            userId: editingTodoId.userId,
           }
         );
-        dispatch({
-          type: "UPDATE_TODO",
+        dispatch(updateTodo({
           id: response.data.id,
           tittle: response.data.tittle,
-          userId: response.data.userId,
-        });
+          userId: response.data.userId
+        }))
+  
       } catch (error) {
         console.error(error);
       }
     }
   };
 
-  const deleteTodo = async (id) => {
+  const handleDeleteTodo = async (id) => {
     try {
       await axios.delete(`https://niyayesh.birkar.ir/Note/DeleteNote?id=${id}`);
-      dispatch({
-        type: "DELETE_TODO",
-        payload: {
-          id,
-        },
-      });
+      dispatch(deleteTodo(id))
+    
     } catch (error) {
       console.error(error);
     }
   };
-  const setNewTodo = (value) => {
-    dispatch({
-      type: "SET_NEW_TODO",
-      payload: value,
-    });
+  const handleSetNewTodo = (value) => {
+    dispatch(setNewTodo(value))
+ 
   };
   const logout = () => {
     Cookies.remove("loginToken")
+    dispatch(removeLoginToken())
+
   }
   return (
     <PageLayout>
@@ -140,9 +138,9 @@ export default function TodoList() {
             text
             label="Add a todo"
             value={newTodo}
-            onChange={(e) => setNewTodo(e.target.value)}
+            onChange={(e) => handleSetNewTodo(e.target.value)}
           />
-          {editingTodo ? (
+          {editingTodoId ? (
             <SButton
               edit
               variant="contained"
@@ -150,7 +148,7 @@ export default function TodoList() {
                 ml: "5px",
               }}
               endIcon={<EditIcon />}
-              onClick={updateTodo}
+              onClick={handleUpdateTodo}
             >
               Edit
             </SButton>
@@ -162,7 +160,7 @@ export default function TodoList() {
                 ml: "5px",
               }}
               endIcon={<AddIcon />}
-              onClick={addTodo}
+              onClick={handleAddTodo}
             >
               Add
             </SButton>
@@ -173,8 +171,8 @@ export default function TodoList() {
             <TodoItem
               key={todo.id}
               todo={todo}
-              editTodo={editTodo}
-              deleteTodo={deleteTodo}
+              handleEditTodo={handleEditTodo}
+              handleDeleteTodo={handleDeleteTodo}
             />
           ))}
         </List>
